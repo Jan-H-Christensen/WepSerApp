@@ -10,6 +10,16 @@ namespace WepSerApp.ViewModel
 {
     class NewsAppViewModel : Bindable
     {
+        private string searchWord;
+
+        public string Searchword
+        {
+            get { return searchWord; }
+            set { searchWord = value;
+                PropertyIsChanged();
+            }
+        }
+
         private string groupsNameFromFavorit;
 
         public string GroupsNameFromFavorit
@@ -40,6 +50,7 @@ namespace WepSerApp.ViewModel
         public ServerCommand CleanWindow { get; set; }
         public ServerCommand AddToFavoritGroup { get; set; }
         public ServerCommand GetListArticles { get; set; }
+        public ServerCommand Search { get; set; }
 
         private MyFavoriteGroup favoriteGroup;
         public MyFavoriteGroup FavoriteGroup
@@ -118,6 +129,7 @@ namespace WepSerApp.ViewModel
             CleanWindow = new ServerCommand(CleanChatWindow);
             AddToFavoritGroup = new ServerCommand(AddGroup);
             GetListArticles = new ServerCommand(GetArticelList);
+            Search = new ServerCommand(FindWord);
         }
 
         public void CreateConnectToServer(object parmeter)
@@ -174,6 +186,26 @@ namespace WepSerApp.ViewModel
         {
             GroupsNameFromFavorit = FavoriteGroup.GroupName;
             OverviewList = new ObservableCollection<MyOverview>(serverCommunication.ArticelInSelectedGroup(GroupsNameFromFavorit));
+        }
+
+        private void FindWord(object parameter)
+        {
+            OverviewList.Clear();
+
+            ObservableCollection<MyOverview> list = new ObservableCollection<MyOverview>();
+            Console.WriteLine(Searchword);
+
+            foreach (MyOverview item in serverCommunication.GetServerGroups())
+            {
+                // if the word equels or starts with the chars the word will be added to our list
+                if (item.NamesInList.Equals(Searchword) || item.NamesInList.StartsWith(Searchword))
+                    //Console.WriteLine(item.NamesInList);
+                    list.Add(item);
+            }
+
+            OverviewList = new ObservableCollection<MyOverview>(list);
+            // dirty clean up of textfield
+            Searchword = "";
         }
     }
 }

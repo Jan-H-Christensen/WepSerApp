@@ -327,6 +327,7 @@
                 Command="{Binding }"></Button>
         
         <TextBox x:Name="SearchField"
+                 Text="{Binding Searchword}"
                  Grid.Column="11" 
                  Grid.Row="11"  
                  Grid.ColumnSpan="2"
@@ -343,7 +344,7 @@
                 Background="LightYellow"
                 BorderBrush="Black"
                 BorderThickness="1"
-                Command="{Binding }"></Button>
+                Command="{Binding Search}"></Button>
         
         <ListView x:Name="List"
                   Grid.Row="12"
