@@ -10,6 +10,16 @@ namespace WepSerApp.ViewModel
 {
     class NewsAppViewModel : Bindable
     {
+        private string groupsNameFromFavorit;
+
+        public string GroupsNameFromFavorit
+        {
+            get { return groupsNameFromFavorit; }
+            set { groupsNameFromFavorit = value;
+                PropertyIsChanged();
+            }
+        }
+
         ServerCommunication serverCommunication;
 
         public ServerCommunication ServerCom
@@ -28,9 +38,19 @@ namespace WepSerApp.ViewModel
         public ServerCommand GroupList { get; set; }
         public ServerCommand SeverHelpList { get; set; }
         public ServerCommand CleanWindow { get; set; }
+        public ServerCommand AddToFavoritGroup { get; set; }
+        public ServerCommand GetListArticles { get; set; }
+
+        private MyFavoriteGroup favoriteGroup;
+        public MyFavoriteGroup FavoriteGroup
+        {
+            get { return favoriteGroup; }
+            set { favoriteGroup = value; 
+                    PropertyIsChanged(); 
+            }
+        }
 
         private MyOverview overview;
-
         public MyOverview Overview
         {
             get { return overview; }
@@ -38,7 +58,6 @@ namespace WepSerApp.ViewModel
                 PropertyIsChanged();
             }
         }
-
 
         private MyServerList myServer;
         public MyServerList MyServer
@@ -50,7 +69,6 @@ namespace WepSerApp.ViewModel
         }
 
         private ObservableCollection<MyServerList> listOfServer = new ObservableCollection<MyServerList>();
-
         public ObservableCollection<MyServerList> ListOfServers
         {
             get { return listOfServer; }
@@ -60,11 +78,19 @@ namespace WepSerApp.ViewModel
         }
 
         private ObservableCollection<MyOverview> overviewList = new ObservableCollection<MyOverview>();
-
         public ObservableCollection<MyOverview> OverviewList
         {
             get { return overviewList; }
             set { overviewList = value;
+                PropertyIsChanged();
+            }
+        }
+
+        private ObservableCollection<MyFavoriteGroup> favoriteGroupsList = new ObservableCollection<MyFavoriteGroup>();
+        public ObservableCollection<MyFavoriteGroup> FavoriteGroupsList
+        {
+            get { return favoriteGroupsList; }
+            set { favoriteGroupsList = value;
                 PropertyIsChanged();
             }
         }
@@ -74,6 +100,7 @@ namespace WepSerApp.ViewModel
             myServer = new MyServerList();
             overview = new MyOverview();
             serverCommunication = new ServerCommunication();
+            favoriteGroup = new MyFavoriteGroup();
 
             ListOfServers.Add(new MyServerList
             {
@@ -89,11 +116,12 @@ namespace WepSerApp.ViewModel
             GroupList = new ServerCommand(GetGroupList);
             SeverHelpList = new ServerCommand(GetHelpList);
             CleanWindow = new ServerCommand(CleanChatWindow);
+            AddToFavoritGroup = new ServerCommand(AddGroup);
+            GetListArticles = new ServerCommand(GetArticelList);
         }
 
         public void CreateConnectToServer(object parmeter)
         {
-
             serverCommunication.Connect(new MyServerList
             {
                 Servername = MyServer.Servername,
@@ -101,14 +129,11 @@ namespace WepSerApp.ViewModel
                 Username = MyServer.Username,
                 Password = MyServer.Password
             });
-
         }
 
         public void SendInputToServer(object parameter)
         {
             serverCommunication.SendTextToServer(new MyOverview { NamesInList = Overview.NamesInList });
-            //overviewList.Clear();
-            //ServerCom.InputMassage = "";
         }
 
         public void AddToServerList(object parameter)
@@ -137,6 +162,18 @@ namespace WepSerApp.ViewModel
         public void CleanChatWindow(object parameter)
         {
             serverCommunication.Clean();
+        }
+
+        public void AddGroup(object parameter)
+        {
+            Console.WriteLine(FavoriteGroup.GroupName);
+            FavoriteGroupsList.Add(new MyFavoriteGroup { GroupName = Overview.NamesInList });
+        }
+
+        public void GetArticelList(object parameter)
+        {
+            GroupsNameFromFavorit = FavoriteGroup.GroupName;
+            OverviewList = new ObservableCollection<MyOverview>(serverCommunication.ArticelInSelectedGroup(GroupsNameFromFavorit));
         }
     }
 }

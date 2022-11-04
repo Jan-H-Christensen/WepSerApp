@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WepSerApp.ViewModel"
         mc:Ignorable="d"
-        Title="NewsAppUI" Height="650" Width="1000">
+        Title="NewsAppUI" Height="800" Width="1200" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:NewsAppViewModel/>
     </Window.DataContext>
@@ -44,12 +44,20 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="5"></RowDefinition>
         </Grid.RowDefinitions>
         
         <ListView x:Name="ServerList"
                   Grid.Row="1"
-                  Grid.RowSpan="6"
+                  Grid.RowSpan="14"
                   Grid.Column="1"
                   Grid.ColumnSpan="3"
                   Background="AliceBlue"
@@ -75,7 +83,7 @@
         </ListView>
 
         <Label Content="Server Address"
-               Grid.Row="7"
+               Grid.Row="15"
                Grid.Column="1"
                Grid.ColumnSpan="3"
                FontSize="12"
@@ -86,7 +94,7 @@
         
         <TextBox x:Name="ServerName"
                  Text="{Binding SelectedItem.Servername, ElementName=ServerList}"
-                 Grid.Row="8"
+                 Grid.Row="16"
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
                  FontSize="12"
@@ -96,7 +104,7 @@
                  BorderThickness="1"></TextBox>
         
         <Label Content="Port"
-               Grid.Row="9"
+               Grid.Row="17"
                Grid.Column="1"
                Grid.ColumnSpan="3"
                FontSize="12"
@@ -107,7 +115,7 @@
 
         <TextBox x:Name="Port"
                  Text="{Binding SelectedItem.Port, ElementName=ServerList}"
-                 Grid.Row="10"
+                 Grid.Row="18"
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
                  FontSize="12"
@@ -117,7 +125,7 @@
                  BorderThickness="1"></TextBox>
 
         <Label Content="Username"
-               Grid.Row="11"
+               Grid.Row="19"
                Grid.Column="1"
                Grid.ColumnSpan="3"
                FontSize="12"
@@ -128,7 +136,7 @@
 
         <TextBox x:Name="Username"
                  Text="{Binding SelectedItem.Username, ElementName=ServerList}"
-                 Grid.Row="12"
+                 Grid.Row="20"
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
                  FontSize="12"
@@ -138,7 +146,7 @@
                  BorderThickness="1"></TextBox>
 
         <Label Content="Password"
-               Grid.Row="13"
+               Grid.Row="21"
                Grid.Column="1"
                Grid.ColumnSpan="3"
                FontSize="12"
@@ -149,7 +157,7 @@
 
         <TextBox x:Name="Password"
                  Text="{Binding SelectedItem.Password, ElementName=ServerList}"
-                 Grid.Row="14"
+                 Grid.Row="22"
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
                  FontSize="12"
@@ -161,7 +169,7 @@
         <Button x:Name="Add" 
                 Content="ADD"
                 Grid.Column="1" 
-                Grid.Row="15" 
+                Grid.Row="23" 
                 Background="LightGreen"
                 BorderBrush="Black"
                 BorderThickness="1"
@@ -170,7 +178,7 @@
         <Button x:Name="Delete" 
                 Content="Delete"
                 Grid.Column="2" 
-                Grid.Row="15" 
+                Grid.Row="23" 
                 Background="OrangeRed"
                 BorderBrush="Black"
                 BorderThickness="1"
@@ -179,13 +187,13 @@
         <Button x:Name="Connect" 
                 Content="Connect"
                 Grid.Column="3" 
-                Grid.Row="15" 
+                Grid.Row="23" 
                 Background="CornflowerBlue"
                 BorderBrush="Black"
                 BorderThickness="1"
                 Command="{Binding ConnectToServer}"></Button>
 
-        <Label Content="Communication to Server"
+        <Label Content="Communication to/from Server"
                Grid.Row="1"
                Grid.Column="5"
                Grid.ColumnSpan="5"
@@ -200,7 +208,7 @@
                    Grid.Column="5"
                    Grid.Row="2"
                    Grid.ColumnSpan="5"
-                   Grid.RowSpan="11"
+                   Grid.RowSpan="19"
                    Foreground="Green"
                    TextWrapping="Wrap"
                    Text="{Binding ServerCom.OutputText}"
@@ -211,10 +219,10 @@
                 Grid.Column="5"
                 Grid.ColumnSpan="5"
                 Grid.Row="2"
-                Grid.RowSpan="11"></Border>
+                Grid.RowSpan="19"></Border>
 
         <Label Content="Input to Server"
-               Grid.Row="13"
+               Grid.Row="21"
                Grid.Column="5"
                Grid.ColumnSpan="5"
                FontSize="12"
@@ -226,7 +234,7 @@
         <!--Text="{Binding SelectedItem.NamesInList ,ElementName=List, UpdateSourceTrigger=PropertyChanged}"-->
         <TextBox x:Name="Input"
                  Text="{Binding SelectedItem.NamesInList ,ElementName=List, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Row="14"
+                 Grid.Row="22"
                  Grid.Column="5"
                  Grid.ColumnSpan="5"
                  FontSize="12"
@@ -238,7 +246,7 @@
         <Button x:Name="CleanChat" 
                 Content="Clean Chat"
                 Grid.Column="5" 
-                Grid.Row="15" 
+                Grid.Row="23" 
                 Background="OrangeRed"
                 BorderBrush="Black"
                 BorderThickness="1"
@@ -247,7 +255,7 @@
         <Button x:Name="Send" 
                 Content="Send"
                 Grid.Column="9" 
-                Grid.Row="15" 
+                Grid.Row="23" 
                 Background="LightGreen"
                 BorderBrush="Black"
                 BorderThickness="1"
@@ -255,14 +263,15 @@
 
         <ListView x:Name="FavoritGroups"
                   Grid.Row="1"
-                  Grid.RowSpan="6"
+                  Grid.RowSpan="8"
                   Grid.Column="11"
                   Grid.ColumnSpan="3"
                   Background="AliceBlue"
                   BorderBrush="Black"
                   BorderThickness="1"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  ItemsSource="{Binding }">
+                  ItemsSource="{Binding FavoriteGroupsList}"
+                  SelectedItem="{Binding FavoriteGroup}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="BorderBrush" Value="LightGray" />
@@ -273,25 +282,36 @@
                 <GridView>
                     <GridViewColumn Width="275"
                                     Header="My Groups" 
-                                    DisplayMemberBinding="{Binding }"></GridViewColumn>
+                                    DisplayMemberBinding="{Binding GroupName}"></GridViewColumn>
 
                 </GridView>
             </ListView.View>
         </ListView>
 
+        <TextBox x:Name="AddFavorit"
+                 Text="{Binding GroupsNameFromFavorit}"
+                 Grid.Column="11" 
+                 Grid.Row="9"  
+                 Grid.ColumnSpan="3"
+                 Foreground="Red"
+                 BorderBrush="Black"
+                 BorderThickness="1"
+                 VerticalContentAlignment="Center"
+                 ></TextBox>
+        
         <Button x:Name="AddGroup" 
                 Content="Add Group"
                 Grid.Column="11" 
-                Grid.Row="7" 
+                Grid.Row="10" 
                 Background="LightGreen"
                 BorderBrush="Black"
                 BorderThickness="1"
-                Command="{Binding }"></Button>
+                Command="{Binding AddToFavoritGroup}"></Button>
 
         <Button x:Name="DeleteGroup" 
                 Content="Delete"
                 Grid.Column="12" 
-                Grid.Row="7" 
+                Grid.Row="10" 
                 Background="OrangeRed"
                 BorderBrush="Black"
                 BorderThickness="1"
@@ -300,15 +320,34 @@
         <Button x:Name="GoToGroup" 
                 Content="Show Group"
                 Grid.Column="13" 
-                Grid.Row="7" 
+                Grid.Row="10" 
                 Background="CornflowerBlue"
                 BorderBrush="Black"
                 BorderThickness="1"
                 Command="{Binding }"></Button>
+        
+        <TextBox x:Name="SearchField"
+                 Grid.Column="11" 
+                 Grid.Row="11"  
+                 Grid.ColumnSpan="2"
+                 Foreground="Red"
+                 BorderBrush="Black"
+                 BorderThickness="1"
+                 VerticalContentAlignment="Center"
+                 ></TextBox>
 
+        <Button x:Name="Search" 
+                Content="Search"
+                Grid.Column="13" 
+                Grid.Row="11" 
+                Background="LightYellow"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Command="{Binding }"></Button>
+        
         <ListView x:Name="List"
-                  Grid.Row="8"
-                  Grid.RowSpan="7"
+                  Grid.Row="12"
+                  Grid.RowSpan="11"
                   Grid.Column="11"
                   Grid.ColumnSpan="3"
                   Background="AliceBlue"
@@ -336,7 +375,7 @@
         <Button x:Name="Group" 
                 Content="Goup List"
                 Grid.Column="11" 
-                Grid.Row="15" 
+                Grid.Row="23" 
                 Background="LightGreen"
                 BorderBrush="Black"
                 BorderThickness="1"
@@ -345,16 +384,16 @@
         <Button x:Name="Article" 
                 Content="Article List"
                 Grid.Column="12" 
-                Grid.Row="15" 
+                Grid.Row="23" 
                 Background="OrangeRed"
                 BorderBrush="Black"
                 BorderThickness="1"
-                Command="{Binding }"></Button>
+                Command="{Binding GetListArticles}"></Button>
 
         <Button x:Name="Help" 
                 Content="Command List"
                 Grid.Column="13" 
-                Grid.Row="15" 
+                Grid.Row="23" 
                 Background="CornflowerBlue"
                 BorderBrush="Black"
                 BorderThickness="1"

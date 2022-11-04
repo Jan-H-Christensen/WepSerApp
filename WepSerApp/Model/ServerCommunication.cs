@@ -63,16 +63,13 @@ namespace WepSerApp.Model
             reader = new StreamReader(ns, Encoding.UTF8);
             RecieveMessage = reader.ReadLine();
             bufferText += RecieveMessage + "\n";
-            Console.WriteLine(RecieveMessage);
-
-            
+       
             SendMessage = Encoding.UTF8.GetBytes("authinfo user " + myServer.Username + "\n"); // remember to end the line with newLine!!!!
             ns.Write(SendMessage, 0, SendMessage.Length);
 
             reader = new StreamReader(ns, Encoding.UTF8);
             RecieveMessage = reader.ReadLine();
             bufferText += RecieveMessage + "\n";
-            Console.WriteLine(RecieveMessage);
 
             SendMessage = Encoding.UTF8.GetBytes("authinfo pass " + myServer.Password + "\n"); // remember to end the line with newLine!!!!
             ns.Write(SendMessage, 0, SendMessage.Length);
@@ -86,9 +83,7 @@ namespace WepSerApp.Model
         public void SendTextToServer(MyOverview overview)
         {
             string bufferText = OutputText;
-            //OutputText = "";
             InputMassage = overview.NamesInList;
-            Console.WriteLine(InputMassage);
             SendMessage = Encoding.UTF8.GetBytes(InputMassage + "\n"); // remember to end the line with newLine!!!!
             ns.Write(SendMessage, 0, SendMessage.Length);
 
@@ -108,18 +103,6 @@ namespace WepSerApp.Model
                         break;
                     }
                     bufferText += RecieveMessage + "\n";
-                    Console.WriteLine(RecieveMessage);
-                }
-            }
-            else
-            {
-                if (RecieveMessage.StartsWith("205"))
-                {
-                    Console.WriteLine(RecieveMessage);
-                }
-                else
-                {
-                    Console.WriteLine(RecieveMessage);
                 }
             }
             OutputText = bufferText;
@@ -127,9 +110,7 @@ namespace WepSerApp.Model
 
         public List<MyOverview> GetServerGroups()
         {
-            //string bufferText = "";
             List<MyOverview> list = new List<MyOverview>();
-            //OutputText = "";
             SendMessage = Encoding.UTF8.GetBytes("list\n"); // remember to end the line with newLine!!!!
             ns.Write(SendMessage, 0, SendMessage.Length);
 
@@ -142,25 +123,19 @@ namespace WepSerApp.Model
                     break;
                 }
                 string[] newsGroupsList = Regex.Split(RecieveMessage, @"\s+", RegexOptions.IgnorePatternWhitespace);
-                list.Add(new MyOverview { NamesInList = "group "+newsGroupsList[0]});
-
-                Console.WriteLine(RecieveMessage);
+                list.Add(new MyOverview { NamesInList = newsGroupsList[0]});
             }
-            //OutputText = bufferText;
             return list;
         }
         
         public List<MyOverview> GetServerCommands()
         {
-            //string bufferText = "";
             List<MyOverview> list = new List<MyOverview>();
-            //OutputText = "";
             SendMessage = Encoding.UTF8.GetBytes("help\n"); // remember to end the line with newLine!!!!
             ns.Write(SendMessage, 0, SendMessage.Length);
 
             reader = new StreamReader(ns, Encoding.UTF8);
             RecieveMessage = reader.ReadLine();
-            //bufferText += RecieveMessage + "\n";
             while (true)
             {
                 if ((RecieveMessage = reader.ReadLine()) == ".")
@@ -169,15 +144,33 @@ namespace WepSerApp.Model
                 }
                 var cleanword = Regex.Replace(RecieveMessage.Split()[2], @"[^0-9a-zA-Z\ ]+", "");
                 list.Add(new MyOverview { NamesInList = cleanword});
-                Console.WriteLine(RecieveMessage);
             }
-            //OutputText = bufferText;
             return list;
         }
 
         public void Clean()
         {
             OutputText = "";
+        }
+
+        public List<MyOverview> ArticelInSelectedGroup(string groupName)
+        {
+            List<MyOverview> list = new List<MyOverview>();
+            SendMessage = Encoding.UTF8.GetBytes("listgroup " + groupName + "\n");
+            ns.Write(SendMessage, 0, SendMessage.Length);
+
+            reader = new StreamReader(ns, Encoding.UTF8);
+            RecieveMessage = reader.ReadLine();
+            while (true)
+            {
+                if ((RecieveMessage = reader.ReadLine()) == ".")
+                {
+                    break;
+                }
+                list.Add(new MyOverview { NamesInList = "article "+ RecieveMessage });
+            }
+
+            return list;
         }
     }
 }

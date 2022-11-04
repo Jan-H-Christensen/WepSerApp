@@ -17,6 +17,5 @@ namespace WepSerApp.Model
                 PropertyIsChanged();
             }
         }
-
     }
 }
