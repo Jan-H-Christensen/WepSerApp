@@ -193,13 +193,11 @@ namespace WepSerApp.ViewModel
             OverviewList.Clear();
 
             ObservableCollection<MyOverview> list = new ObservableCollection<MyOverview>();
-            Console.WriteLine(Searchword);
 
             foreach (MyOverview item in serverCommunication.GetServerGroups())
             {
                 // if the word equels or starts with the chars the word will be added to our list
                 if (item.NamesInList.Equals(Searchword) || item.NamesInList.StartsWith(Searchword))
-                    //Console.WriteLine(item.NamesInList);
                     list.Add(item);
             }
 
